@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-[#080808] text-white font-sans selection:bg-[#ff4d00] selection:text-black;
+  }
+}
+
+/* Custom Utilities */
+.glass {
+  @apply bg-white/[0.03] backdrop-blur-md border border-white/[0.08];
+}
+
+.orange-glow {
+  box-shadow: 0 0 20px rgba(255, 77, 0, 0.4), 0 0 40px rgba(255, 77, 0, 0.2);
+}
+
+.text-gradient-orange {
+  @apply bg-clip-text text-transparent bg-gradient-to-br from-[#ff4d00] to-[#ff8c00];
+}
+
+.btn-primary {
+  @apply px-8 py-3 bg-[#ff4d00] text-black font-bold rounded-full hover:bg-[#ff6a22] transition-all transform hover:scale-105 active:scale-95;
+}
+
+.btn-secondary {
+  @apply px-8 py-3 border-2 border-[#ff4d00] text-[#ff4d00] font-bold rounded-full hover:bg-[#ff4d00] hover:text-black transition-all transform hover:scale-105;
+}
+
+.progress-bar-container {
+  @apply h-2 w-full bg-[#1a1a1a] rounded-full overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full bg-[#ff4d00] rounded-full;
+}
+
+.nav-link {
+  @apply text-sm font-semibold text-gray-400 hover:text-[#ff4d00] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#ff4d00] hover:after:w-full after:transition-all;
+}
