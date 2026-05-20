@@ -31,7 +31,7 @@ import {
   PROJECTS, 
   CERTIFICATIONS 
 } from "./constants";
-import profilePic from "file:///C:/Users/varsh/Desktop/me.png";
+import profilePic from "./assets/images/varshini_final_photo_1779206123005.png";
 import project1 from "./assets/images/time_tracking_app_1779206219417.png";
 import project2 from "./assets/images/ev_management_app_1779206241878.png";
 import project3 from "./assets/images/issue_track_app_1779206264390.png";
