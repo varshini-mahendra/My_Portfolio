@@ -19,10 +19,7 @@ import {
   ExternalLink,
   Award,
   ArrowRight,
-  Search,
-  Facebook,
-  Twitter,
-  Instagram
+  Search
 } from "lucide-react";
 import { 
   PERSONAL_INFO, 
@@ -326,6 +323,75 @@ export default function App() {
         </div>
       </section>
 
+      {/* Core Competencies (Soft Skills) */}
+      <section id="core-competencies" className="py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-black mb-4">Core <span className="text-[#ff4d00]">Competencies</span></h2>
+            <p className="text-gray-500 uppercase tracking-[0.3em] text-xs">Soft Skills & Work Style</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Communication",
+                desc: "Explaining complex concepts clearly to teammates and stakeholders."
+              },
+              {
+                title: "Problem Solving",
+                desc: "Breaking down issues, testing assumptions, and iterating to solutions."
+              },
+              {
+                title: "Ownership",
+                desc: "Taking responsibility for outcomes and following through to completion."
+              },
+              {
+                title: "Collaboration",
+                desc: "Working effectively with cross-functional teams and sharing progress early."
+              },
+              {
+                title: "Adaptability",
+                desc: "Learning fast and adjusting priorities as requirements evolve."
+              },
+              {
+                title: "Attention to Detail",
+                desc: "Ensuring accuracy in data, logic, and documentation—especially in risk contexts."
+              },
+              {
+                title: "Time Management",
+                desc: "Planning work in milestones and delivering consistently under deadlines."
+              },
+              {
+                title: "Critical Thinking",
+                desc: "Evaluating trade-offs with a structured, evidence-based mindset."
+              },
+              {
+                title: "Stakeholder Mindset",
+                desc: "Aligning deliverables with business goals, compliance needs, and user impact."
+              }
+            ].map((c, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.05 }}
+                className="bg-[#121212] p-10 rounded-[2rem] border border-white/5 hover:border-[#ff4d00]/30 transition-all group"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#ff4d00]/10 flex items-center justify-center text-[#ff4d00] group-hover:bg-[#ff4d00] group-hover:text-black transition-all">
+                    <span className="text-lg font-black">{i + 1}</span>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-3">{c.title}</h3>
+                    <p className="text-gray-500 leading-relaxed">{c.desc}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="py-20 lg:py-40 bg-[#0a0a0a]">
         <div className="max-w-4xl mx-auto px-6">
@@ -355,15 +421,7 @@ export default function App() {
       <footer className="py-20 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <div className="flex justify-center gap-6 mb-10">
-            <a href="#" className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center hover:bg-[#ff4d00] hover:text-black transition-all">
-              <Facebook size={20} />
-            </a>
-            <a href="#" className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center hover:bg-[#ff4d00] hover:text-black transition-all">
-              <Twitter size={20} />
-            </a>
-            <a href="#" className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center hover:bg-[#ff4d00] hover:text-black transition-all">
-              <Instagram size={20} />
-            </a>
+            {/* Social icons removed as requested */}
           </div>
           <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">
             © Varshini M All Rights Reserved.
