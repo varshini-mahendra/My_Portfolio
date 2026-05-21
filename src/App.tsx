@@ -381,7 +381,7 @@ export default function App() {
             <p className="text-gray-500 uppercase tracking-[0.3em] text-xs">Soft Skills & Work Style</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {[
               {
                 title: "Communication",
@@ -392,12 +392,12 @@ export default function App() {
                 desc: "Breaking down issues, testing assumptions, and iterating to solutions."
               },
               {
-                title: "Adaptability",
-                desc: "Learning fast and adjusting priorities as requirements evolve."
+                title: "Ownership",
+                desc: "Taking responsibility for outcomes and following through to completion."
               },
               {
-                title: "Stakeholder Mindset",
-                desc: "Aligning deliverables with business goals, compliance needs, and user impact."
+                title: "Teamwork",
+                desc: "Collaborating effectively with cross-functional teams and sharing progress early."
               }
             ].map((c, i) => (
               <motion.div
