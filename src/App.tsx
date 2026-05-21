@@ -5,6 +5,8 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import SpaceParticles from "./components/SpaceParticles";
+
 import { 
   Github, 
   Linkedin, 
@@ -56,7 +58,9 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white font-sans scroll-smooth">
+    <div className="min-h-screen bg-[#080808] text-white font-sans scroll-smooth relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 bg-hero-space opacity-100" aria-hidden="true" />
+      <SpaceParticles />
       {/* Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-[#080808]/80 backdrop-blur-md py-4 shadow-xl" : "py-6"}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
