@@ -290,6 +290,50 @@ export default function App() {
         </div>
       </section>
 
+      {/* Internship Experience Section */}
+      <section id="internships" className="py-20 bg-[#0a0a0a]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-black mb-4">Internship <span className="text-[#ff4d00]">Experience</span></h2>
+            <p className="text-gray-500 uppercase tracking-[0.3em] text-xs">From real-world SDLC work to production-ready delivery</p>
+          </div>
+
+          <div className="space-y-8">
+            {INTERNSHIPS.map((i, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.08 }}
+                className="bg-[#121212] p-10 rounded-[2rem] border border-white/5 hover:border-[#ff4d00]/20 transition-all"
+              >
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                  <div>
+                    <h3 className="text-3xl font-bold mb-2">{i.role}</h3>
+                    <p className="text-[#ff4d00] font-bold text-lg">{i.company}</p>
+                    <div className="mt-2 flex flex-wrap gap-3 text-gray-500 text-sm">
+                      <span className="inline-flex items-center">{i.location}</span>
+                      <span className="opacity-60">•</span>
+                      <span className="inline-flex items-center">{i.period}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <ul className="mt-6 space-y-3">
+                  {i.bullets.map((b, bi) => (
+                    <li key={bi} className="flex gap-3 text-gray-400 leading-relaxed">
+                      <span className="mt-1 w-2 h-2 rounded-full bg-[#ff4d00] flex-shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+
       {/* Projects Section */}
       <section id="portfolio" className="py-20 lg:py-40">
         <div className="max-w-7xl mx-auto px-6">
@@ -348,28 +392,8 @@ export default function App() {
                 desc: "Breaking down issues, testing assumptions, and iterating to solutions."
               },
               {
-                title: "Ownership",
-                desc: "Taking responsibility for outcomes and following through to completion."
-              },
-              {
-                title: "Collaboration",
-                desc: "Working effectively with cross-functional teams and sharing progress early."
-              },
-              {
                 title: "Adaptability",
                 desc: "Learning fast and adjusting priorities as requirements evolve."
-              },
-              {
-                title: "Attention to Detail",
-                desc: "Ensuring accuracy in data, logic, and documentation—especially in risk contexts."
-              },
-              {
-                title: "Time Management",
-                desc: "Planning work in milestones and delivering consistently under deadlines."
-              },
-              {
-                title: "Critical Thinking",
-                desc: "Evaluating trade-offs with a structured, evidence-based mindset."
               },
               {
                 title: "Stakeholder Mindset",
