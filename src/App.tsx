@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 
@@ -71,7 +71,7 @@ export default function App() {
             <NavItem id="about" label="About" />
             <NavItem id="services" label="Services" />
             <NavItem id="portfolio" label="Portfolio" />
-            <NavItem id="internships" label="Internships" />
+
             <NavItem id="contact" label="Contact" />
           </nav>
           <div className="flex items-center gap-4">
@@ -205,48 +205,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Internship Experience Section */}
-      <section id="internships" className="py-20 bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-black mb-4">Internship <span className="text-[#ff4d00]">Experience</span></h2>
-            <p className="text-gray-500 uppercase tracking-[0.3em] text-xs">From real-world SDLC work to production-ready delivery</p>
-          </div>
 
-          <div className="space-y-8">
-            {INTERNSHIPS.map((i, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.08 }}
-                className="bg-[#121212] p-10 rounded-[2rem] border border-white/5"
-              >
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-                  <div>
-                    <h3 className="text-3xl font-bold mb-2">{i.role}</h3>
-                    <p className="text-[#ff4d00] font-bold text-lg">{i.company}</p>
-                    <div className="mt-2 flex flex-wrap gap-3 text-gray-500 text-sm">
-                      <span className="inline-flex items-center">{i.location}</span>
-                      <span className="opacity-60">•</span>
-                      <span className="inline-flex items-center">{i.period}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <ul className="mt-6 space-y-3">
-                  {i.bullets.map((b, bi) => (
-                    <li key={bi} className="flex gap-3 text-gray-400 leading-relaxed">
-                      <span className="mt-1 w-2 h-2 rounded-full bg-[#ff4d00] flex-shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Skills Section */}
       <section className="py-32">
