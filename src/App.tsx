@@ -469,22 +469,27 @@ export default function App() {
             <p className="text-gray-500 uppercase tracking-[0.3em] text-xs">How I Can Add Value</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { 
-                icon: ShieldCheck, 
-                title: "Risk Assessment", 
-                desc: "Specialized in identifying vulnerabilities and documenting compliance for IT infrastructures."
+                icon: Search, 
+                title: "Threat Detection & Analysis", 
+                desc: "Identifying suspicious activities, investigating security events, and analyzing logs to detect potential cyber threats."
               },
               { 
                 icon: BarChart3, 
-                title: "Data Visualization", 
-                desc: "Creating insightful dashboards using Power BI and Tableau to drive business decisions." 
+                title: "SIEM Management & Log Analysis", 
+                desc: "Analyzing security logs and alerts from SIEM platforms like Splunk, Microsoft Sentinel, and Elastic Security to improve threat visibility." 
               },
               { 
-                icon: Code2, 
-                title: "Full-Stack Dev", 
-                desc: "Building secure and scalable web applications with React, Node.js, and MongoDB."
+                icon: ShieldCheck, 
+                title: "Vulnerability Management", 
+                desc: "Performing vulnerability assessments, prioritizing risks, and recommending security improvements to strengthen IT infrastructure."
+              },
+              { 
+                icon: Award, 
+                title: "Security Operations Support", 
+                desc: "Assisting with incident investigation, threat hunting, and maintaining security best practices to protect organizational assets."
               }
             ].map((s, i) => (
               <motion.div 
