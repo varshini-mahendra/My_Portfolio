@@ -28,8 +28,10 @@ import {
   INTERNSHIPS, 
   EDUCATION, 
   PROJECTS, 
-  CERTIFICATIONS 
+  CERTIFICATIONS, 
+  LANGUAGES 
 } from "./constants";
+import StarField from "./components/StarField";
 import profilePic from "./assets/images/me.png";
 import project1 from "./assets/images/time_tracking_app_1779206219417.png";
 import project2 from "./assets/images/ev_management_app_1779206241878.png";
@@ -40,6 +42,44 @@ const projectImages = [project1, project2, project3];
 export default function App() {
   const [activeNav, setActiveNav] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Contact form state
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: ""
+  });
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    setStatus("");
+
+    try {
+      const res = await fetch("http://localhost:3002/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus("Message sent successfully! I'll get back to you soon.");
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      } else {
+        setStatus(data.error || "Failed to send. Please try again.");
+      }
+    } catch {
+      setStatus("Network error. Please try again later.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -58,7 +98,16 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white font-sans scroll-smooth">
+    <div className="min-h-screen bg-[#080808] text-white font-sans scroll-smooth relative">
+      {/* Full-page Starfield Background */}
+      <StarField />
+
+      {/* Gradient overlays for depth */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-[1]">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#ff4d00]/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#ff4d00]/3 rounded-full blur-[100px]" />
+      </div>
+
       {/* Header */}
 
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-[#080808]/80 backdrop-blur-md py-4 shadow-xl" : "py-6"}`}>
@@ -98,7 +147,7 @@ export default function App() {
               {PERSONAL_INFO.title}
             </p>
             <p className="text-gray-400 text-lg mb-10 max-w-xl leading-relaxed">
-              Detail-oriented MCA candidate with a focus on risk management and data analysis. I build secure, data-driven applications that solve real-world problems.
+              Detail-oriented MCA candidate with a focus on SOC analysis and data analysis. I build secure, data-driven applications that solve real-world problems.
             </p>
             <div className="flex flex-wrap gap-6 mb-12">
               <button className="btn-primary uppercase tracking-widest text-xs">LET'S TALK</button>
@@ -133,118 +182,287 @@ export default function App() {
           </motion.div>
         </div>
 
-        {/* Floating Stats Strip */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-4xl px-6 flex justify-between items-center opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
-           <span className="font-black tracking-[0.4em] text-[10px] uppercase">JavaScript</span>
-           <span className="font-black tracking-[0.4em] text-[10px] uppercase">React.js</span>
-           <span className="font-black tracking-[0.4em] text-[10px] uppercase">SQL / Excel</span>
-           <span className="font-black tracking-[0.4em] text-[10px] uppercase">Risk GRC</span>
-           <span className="font-black tracking-[0.4em] text-[10px] uppercase">Node.js</span>
+          {/* Background Animated Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -30, 0], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-20 left-[10%] w-4 h-4 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ y: [0, 30, 0], opacity: [0.2, 0.5, 0.2] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-40 right-[15%] w-6 h-6 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ x: [0, 40, 0], opacity: [0.15, 0.4, 0.15] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-40 left-[20%] w-3 h-3 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ scale: [1, 1.5, 1], opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/2 right-[10%] w-5 h-5 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ rotate: [0, 360], opacity: [0.1, 0.25, 0.1] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/4 left-[5%] w-8 h-8 border border-[#ff4d00]/30 rounded-full"
+          />
+          <motion.div
+            animate={{ rotate: [360, 0], opacity: [0.1, 0.25, 0.1] }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-1/4 right-[8%] w-12 h-12 border border-[#ff4d00]/20 rounded-full"
+          />
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-32 bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-black mb-16 relative inline-block">
-            About <span className="text-[#ff4d00]">Me</span>
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-[#ff4d00] rounded-full" />
-          </h2>
-          
-          <div className="grid md:grid-cols-[1fr_400px_1fr] gap-12 items-center">
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="text-right space-y-12"
-            >
-              <div>
-                <h3 className="text-xl font-bold mb-2">Education</h3>
-                <p className="text-gray-500 text-sm">{EDUCATION[0].degree} @ {EDUCATION[0].institution}</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Experience</h3>
-                <p className="text-gray-500 text-sm">{INTERNSHIPS.length}+ Internships in Web Dev & Full Stack</p>
-              </div>
-            </motion.div>
-
-            <div className="flex justify-center">
-              <div className="w-[300px] h-[300px] rounded-full border-4 border-[#ff4d00] bg-[#1a1a1a] p-2 orange-glow">
-                <div className="w-full h-full rounded-full overflow-hidden grayscale contrast-125">
-                  <img 
-                    src={profilePic} 
-                    alt="Varshini Biography"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <motion.div 
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="text-left space-y-12"
-            >
-              <div>
-                <h3 className="text-xl font-bold mb-2">Specialization</h3>
-                <p className="text-gray-500 text-sm">IT Risk Management & Modern Data Analysis</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Projects</h3>
-                <p className="text-gray-500 text-sm">3 Completed Production-Ready Apps</p>
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="max-w-3xl mx-auto mt-20">
-            <h3 className="text-2xl font-bold text-[#ff4d00] mb-6 uppercase tracking-widest">{PERSONAL_INFO.title}</h3>
-            <p className="text-gray-400 mb-10 leading-relaxed text-lg">
-              {PERSONAL_INFO.summary}
-            </p>
-            <button className="btn-secondary uppercase tracking-widest text-xs">HIRE ME</button>
-          </div>
+      <section id="about" className="py-32 bg-[#0a0a0a] relative overflow-hidden">
+        {/* Background Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{ x: [0, 50, 0], opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-10 right-[30%] w-3 h-3 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ y: [0, -40, 0], opacity: [0.08, 0.2, 0.08] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-20 left-[15%] w-5 h-5 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ rotate: [0, 360], scale: [1, 1.2, 1] }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/3 right-[10%] w-16 h-16 border border-[#ff4d00]/10 rounded-full"
+          />
         </div>
-      </section>
+        <div className="max-w-7xl mx-auto px-6">
+
+  <div className="text-center mb-20">
+    <h2 className="text-5xl font-black">
+      About <span className="text-[#ff4d00]">Me</span>
+    </h2>
+
+    <div className="w-24 h-1 bg-[#ff4d00] mx-auto mt-5 rounded-full"></div>
+  </div>
+
+  <div className="grid lg:grid-cols-3 gap-10 items-center">
+
+    {/* LEFT */}
+
+    <div className="space-y-8">
+
+      <motion.div
+        whileHover={{ y: -5 }}
+        className="bg-[#111111] border border-[#ff4d00]/20 rounded-3xl p-8"
+      >
+        <GraduationCap className="text-[#ff4d00] mb-5" size={45} />
+
+        <h3 className="text-3xl font-bold mb-3">
+          Education
+        </h3>
+
+        <p className="text-gray-400 leading-8">
+          {EDUCATION[0].degree}
+          <br />
+          {EDUCATION[0].institution}
+        </p>
+      </motion.div>
+
+      <motion.div
+        whileHover={{ y: -5 }}
+        className="bg-[#111111] border border-[#ff4d00]/20 rounded-3xl p-8"
+      >
+        <Briefcase className="text-[#ff4d00] mb-5" size={45} />
+
+        <h3 className="text-3xl font-bold mb-3">
+          Experience
+        </h3>
+
+        <p className="text-gray-400 leading-8">
+          {INTERNSHIPS.length}+ Internships
+          <br />
+          Full Stack Development
+        </p>
+      </motion.div>
+
+    </div>
+
+    {/* CENTER - VERTICAL PROFILE CARD */}
+
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: .8 }}
+      className="flex flex-col items-center bg-[#111111] rounded-[35px] border border-[#ff4d00]/30 p-8 text-center shadow-[0_0_40px_rgba(255,77,0,.18)]"
+    >
+
+      {/* Profile Icon */}
+      <div className="w-24 h-24 rounded-full bg-[#ff4d00]/10 mx-auto flex items-center justify-center mb-6">
+        <User size={50} className="text-[#ff4d00]" />
+      </div>
+
+      {/* Name & Title */}
+      <h2 className="text-3xl font-black">
+        Varshini <span className="text-[#ff4d00]">M</span>
+      </h2>
+
+      <p className="text-[#ff4d00] text-sm font-bold uppercase tracking-widest mt-2">
+        {PERSONAL_INFO.title}
+      </p>
+
+      <div className="w-16 h-1 bg-[#ff4d00] rounded-full mx-auto my-6"></div>
+
+      {/* Summary */}
+      <p className="text-gray-400 text-sm leading-7 max-w-xs">
+        {PERSONAL_INFO.summary}
+      </p>
+
+      {/* Contact Button */}
+      <a
+        href="#contact"
+        className="inline-flex items-center gap-3 mt-8 bg-[#ff4d00] text-black px-8 py-4 rounded-full font-bold hover:scale-105 transition"
+      >
+        Let's Connect
+        <ArrowRight size={18} />
+      </a>
+
+    </motion.div>
+
+    {/* RIGHT */}
+
+    <div className="space-y-8">
+
+      <motion.div
+        whileHover={{ y: -5 }}
+        className="bg-[#111111] border border-[#ff4d00]/20 rounded-3xl p-8"
+      >
+        <ShieldCheck
+          className="text-[#ff4d00] mb-5"
+          size={45}
+        />
+
+        <h3 className="text-3xl font-bold mb-3">
+          Specialization
+        </h3>
+
+        <p className="text-gray-400 leading-8">
+          Aspiring
+          <br />
+          SOC Analyst
+        </p>
+
+      </motion.div>
+
+      <motion.div
+        whileHover={{ y: -5 }}
+        className="bg-[#111111] border border-[#ff4d00]/20 rounded-3xl p-8"
+      >
+        <Code2
+          className="text-[#ff4d00] mb-5"
+          size={45}
+        />
+
+        <h3 className="text-3xl font-bold mb-3">
+          Projects
+        </h3>
+
+        <p className="text-gray-400 leading-8">
+          {PROJECTS.length} Completed
+          <br />
+          Production Apps
+        </p>
+
+      </motion.div>
+
+    </div>
+
+  </div>
+
+</div>
+</section>
 
 
 
       {/* Skills Section */}
-      <section className="py-32">
+      <section className="py-32 relative overflow-hidden">
+        {/* Background Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -50, 0], opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/4 left-[8%] w-4 h-4 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ x: [0, -40, 0], opacity: [0.08, 0.2, 0.08] }}
+            transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-1/3 right-[12%] w-6 h-6 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ rotate: [0, 360], scale: [1, 1.3, 1] }}
+            transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/2 left-[50%] w-20 h-20 border border-[#ff4d00]/10 rounded-full"
+          />
+        </div>
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-4xl font-black mb-4">My <span className="text-[#ff4d00]">Skills</span></h2>
             <p className="text-gray-500 uppercase tracking-[0.3em] text-xs">Technical Proficiency</p>
           </div>
           
-          <div className="space-y-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { name: "Risk Assessment", level: "85%" },
-              { name: "Data Analysis (SQL / Excel)", level: "90%" },
-              { name: "Power BI / Tableau", level: "80%" },
-              { name: "Frontend (React / TS)", level: "85%" },
-              { name: "Backend (Node.js / MongoDB)", level: "75%" },
-              { name: "IT Controls & GRC", level: "70%" }
+              { name: "SOC Analyst", level: "90%", icon: "🛡️" },
+              { name: "CIA Triad", level: "85%", icon: "🔐" },
+              { name: "Network Security", level: "80%", icon: "🌐" },
+              { name: "SIEM & Log Analysis", level: "85%", icon: "📊" },
+              { name: "Threat Detection", level: "80%", icon: "⚠️" },
+              { name: "Windows/Linux", level: "85%", icon: "💻" },
+              { name: "Wireshark", level: "75%", icon: "📡" },
+              { name: "Nmap", level: "75%", icon: "🗺️" }
             ].map((skill, i) => (
-              <div key={i}>
-                <div className="flex justify-between items-center mb-3">
-                  <span className="font-bold uppercase tracking-widest text-sm">{skill.name}</span>
-                  <span className="text-[#ff4d00] font-mono font-bold">{skill.level}</span>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="bg-[#121212] p-8 rounded-[2rem] border border-white/5 hover:border-[#ff4d00]/30 transition-all group"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-[#ff4d00]/10 flex items-center justify-center text-2xl mb-5 group-hover:bg-[#ff4d00] group-hover:scale-110 transition-all">
+                  <span>{skill.icon}</span>
                 </div>
-                <div className="progress-bar-container">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: skill.level }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="progress-bar-fill"
-                  />
+                <h3 className="text-lg font-bold mb-4 uppercase tracking-widest">{skill.name}</h3>
+                <div className="flex items-end gap-2">
+                  <span className="text-4xl font-black text-[#ff4d00]">{skill.level}</span>
+                  <span className="text-gray-500 text-sm mb-1">proficiency</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-32 bg-[#0a0a0a]">
+      <section id="services" className="py-32 bg-[#0a0a0a] relative overflow-hidden">
+        {/* Background Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{ y: [0, 35, 0], opacity: [0.1, 0.25, 0.1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-10 left-[15%] w-4 h-4 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ x: [0, -30, 0], opacity: [0.08, 0.2, 0.08] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/2 right-[20%] w-5 h-5 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ rotate: [0, -360], scale: [1, 1.2, 1] }}
+            transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-20 left-[40%] w-14 h-14 border border-[#ff4d00]/10 rounded-full"
+          />
+        </div>
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-4xl font-black mb-4">My <span className="text-[#ff4d00]">Services</span></h2>
@@ -422,28 +640,151 @@ export default function App() {
         </div>
       </section>
 
+      {/* Certifications & Languages Section */}
+      <section id="certifications" className="py-20 bg-[#0a0a0a]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-black mb-4">Certifications <span className="text-[#ff4d00]">&</span> Languages</h2>
+            <p className="text-gray-500 uppercase tracking-[0.3em] text-xs">Additional achievements & communication strengths</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="bg-[#121212] p-10 rounded-[2rem] border border-white/5">
+              <h3 className="text-3xl font-bold mb-6 text-[#ff4d00]">Certifications</h3>
+              <div className="space-y-4">
+                {CERTIFICATIONS.map((c, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: i * 0.06 }}
+                    className="bg-[#080808] p-6 rounded-[1.5rem] border border-white/5"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+                      <div>
+                        <h4 className="text-2xl font-bold">{c.title}</h4>
+                        <p className="text-gray-500 mt-1">{c.provider}</p>
+                      </div>
+                      {c.period ? (
+                        <span className="text-[#ff4d00] font-bold whitespace-nowrap">{c.period}</span>
+                      ) : (
+                        <span className="text-gray-400 font-bold whitespace-nowrap">—</span>
+                      )}
+                    </div>
+                    <p className="text-gray-400 mt-4 leading-relaxed">{c.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-[#121212] p-10 rounded-[2rem] border border-white/5">
+              <h3 className="text-3xl font-bold mb-6 text-[#ff4d00]">Languages</h3>
+              <div className="space-y-4">
+                {LANGUAGES.map((l, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: i * 0.06 }}
+                    className="bg-[#080808] p-6 rounded-[1.5rem] border border-white/5 flex items-center justify-between gap-4"
+                  >
+                    <div>
+                      <h4 className="text-2xl font-bold">{l.name}</h4>
+                      <p className="text-gray-500 mt-1">Communication proficiency</p>
+                    </div>
+                    <span className="text-[#ff4d00] font-bold">{l.level}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-20 lg:py-40 bg-[#0a0a0a]">
+      <section id="contact" className="py-20 lg:py-40 bg-[#0a0a0a] relative overflow-hidden">
+        {/* Background Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{ y: [0, -25, 0], opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-20 right-[25%] w-3 h-3 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ x: [0, 30, 0], opacity: [0.08, 0.2, 0.08] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-32 left-[10%] w-5 h-5 rounded-full bg-[#ff4d00] blur-sm"
+          />
+          <motion.div
+            animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/3 left-[30%] w-10 h-10 border border-[#ff4d00]/10 rounded-full"
+          />
+        </div>
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-black mb-4">Contact <span className="text-[#ff4d00]">Me</span></h2>
             <p className="text-gray-500 uppercase tracking-[0.3em] text-xs">Let's Connect</p>
           </div>
 
-          <div className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
-              <input type="text" placeholder="Full Name" className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all" />
-              <input type="email" placeholder="Email Address" className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all" />
+              <input 
+                type="text" 
+                placeholder="Full Name" 
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                required
+                className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all" 
+              />
+              <input 
+                type="email" 
+                placeholder="Email Address" 
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                required
+                className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all" 
+              />
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-              <input type="text" placeholder="Phone Number" className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all" />
-              <input type="text" placeholder="Subject" className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all" />
+              <input 
+                type="text" 
+                placeholder="Phone Number" 
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all" 
+              />
+              <input 
+                type="text" 
+                placeholder="Subject" 
+                value={formData.subject}
+                onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all" 
+              />
             </div>
-            <textarea placeholder="Your Message" rows={6} className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all resize-none"></textarea>
+            <textarea 
+              placeholder="Your Message" 
+              rows={6} 
+              value={formData.message}
+              onChange={(e) => setFormData({...formData, message: e.target.value})}
+              required
+              className="w-full bg-transparent border border-gray-800 rounded-2xl px-6 py-4 focus:border-[#ff4d00] outline-none transition-all resize-none"
+            ></textarea>
             <div className="text-center">
-              <button className="btn-primary w-full md:w-auto px-16 uppercase tracking-widest text-xs">SEND MESSAGE</button>
+              <button 
+                type="submit" 
+                disabled={sending}
+                className="btn-primary w-full md:w-auto px-16 uppercase tracking-widest text-xs disabled:opacity-50"
+              >
+                {sending ? "SENDING..." : "SEND MESSAGE"}
+              </button>
             </div>
-          </div>
+            {status && (
+              <p className={`text-center font-bold ${status.includes("successfully") ? "text-green-500" : "text-[#ff4d00]"}`}>
+                {status}
+              </p>
+            )}
+          </form>
         </div>
       </section>
 

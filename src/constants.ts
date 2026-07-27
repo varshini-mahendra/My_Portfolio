@@ -1,12 +1,12 @@
 export const PERSONAL_INFO = {
   name: "Varshini M",
-  title: "IT Risk Management | Data Analyst",
+  title: "Aspiring SOC Analyst",
   location: "Nanjangud, India",
-  email: "varshini.m1213@gmail.com",
+  email: "varshinivarsh72@gmail.com",
   phone: "+91 81234 24531",
   linkedin: "https://www.linkedin.com/in/varshini-m-89222631b",
   github: "https://github.com/varshini-mahendra",
-  summary: "Detail-oriented MCA candidate and Full Stack Web Developer with experience in web development, data analysis, and SDLC practices. Skilled in Power BI, SQL, Excel, Git, and basic IT risk management concepts including risk assessment, control implementation, and incident documentation. Seeking an IT Risk Management role to apply technical and analytical skills effectively."
+  summary: "Aspiring SOC Analyst with a strong foundation in cybersecurity, network security, and secure application development. Passionate about threat detection, incident response, and continuously enhancing security through analytical problem-solving and hands-on learning.."
 };
 
 export const INTERNSHIPS = [
@@ -52,7 +52,7 @@ export const EDUCATION = [
 ];
 
 export const SKILLS = {
-  riskCompliance: ["IT Risk Assessment (basic)", "GRC Basic Concepts", "Vulnerability Identification", "Incident Documentation", "IT Controls"],
+  riskCompliance: ["SOC Analyst", "CIA Traid","Network security", "SIEM & Log Analysis", "Threat Detection", "Windows/Linux", "Wireshark", "Nmap"],
   dataReporting: ["Power BI", "SQL", "Excel (Advanced)", "Data Analysis", "Dashboard Reporting", "Tableau"],
   frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React"],
   backend: ["Node.js", "MongoDB", "Python"],
